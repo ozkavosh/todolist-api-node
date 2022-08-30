@@ -116,3 +116,9 @@ exports.deleteUser = async (req, res) => {
     res.status(500).send();
   }
 };
+
+exports.greeting = async (req, res) => {
+  res.json({
+      greeting: "Hola"
+  });
+};
