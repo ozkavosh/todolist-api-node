@@ -62,14 +62,14 @@ exports.getTask = async (req, res) => {
           skip: parseInt(req.query.skip),
           sort
         }
-      })
-      .execPopulate();
+      });
     res.json({
       count: req.user.tasks.length,
       data: req.user.tasks
     });
     // console.log(req.user.tasks.length);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err.mesage);
   }
 };
@@ -131,3 +131,4 @@ exports.deleteTaskById = async (req, res) => {
     res.status(500).json(err.mesage);
   }
 };
+

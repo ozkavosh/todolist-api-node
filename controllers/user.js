@@ -6,12 +6,14 @@ exports.register = async (req, res) => {
   const user = new User(req.body);
 
   try {
+    const exists = await User.findOne({ email: user.email });
+    if(exists) throw {error: 'El email ya esta en uso', code: 'AE3'};
     await user.save();
     // sendWelcomeEmail(user.email, user.name);
     const token = await user.generateAuthToken();
     res.status(201).json({ user, token });
   } catch (err) {
-    res.status(400).json(err.message);
+    res.status(400).json(err.message || err);
   }
 };
 
@@ -24,7 +26,7 @@ exports.login = async (req, res) => {
     const token = await user.generateAuthToken();
     res.json({ user, token });
   } catch (err) {
-    res.status(400).json(err.message);
+    res.status(400).json(err.message || err);
   }
 };
 
@@ -39,7 +41,7 @@ exports.logout = async (req, res) => {
       success: true
     });
   } catch (err) {
-    res.status(500).json(err.message);
+    res.status(500).json(err.message || err);
   }
 };
 
@@ -49,7 +51,7 @@ exports.getMe = async (req, res) => {
 
 exports.updateProfile = async (req, res) => {
   const updates = Object.keys(req.body);
-  const allowedUpdates = ["name", "email", "password", "age"];
+  const allowedUpdates = ["name", "email", "password"];
   const isValidOperation = updates.every(update =>
     allowedUpdates.includes(update)
   );
