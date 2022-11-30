@@ -1,6 +1,8 @@
 const express = require("express");
 const multer = require("multer");
 const auth = require("../middleware/auth");
+const path = require("path");
+const fs = require("fs");
 const router = new express.Router();
 
 const {
@@ -27,16 +29,20 @@ router.put("/me", auth, updateProfile);
 
 router.delete("/me", auth, deleteUser);
 
-const upload = multer({
-  limits: {
-    fileSize: 1000000
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./public/avatars");
   },
-  fileFilter(req, file, cb) {
-    console.log(file);
-
-    cb(undefined, true);
+  filename: function (req, file, cb) {
+    const avatars = fs.readdirSync('./public/avatars');
+    if(avatars.includes(`${req.user.email}${path.extname(file.originalname)}`)){
+      fs.unlinkSync('./public/avatars/'+ `${req.user.email}${path.extname(file.originalname)}`);
+    }
+    cb(null, `${req.user.email}${path.extname(file.originalname)}`);
   }
 });
+
+const upload = multer({ storage });
 
 router.post(
   "/me/avatar",

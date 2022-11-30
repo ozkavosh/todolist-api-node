@@ -46,7 +46,7 @@ exports.logout = async (req, res) => {
 };
 
 exports.getMe = async (req, res) => {
-  res.send(req.user);
+  res.json(req.user);
 };
 
 exports.updateProfile = async (req, res) => {
@@ -74,11 +74,7 @@ exports.updateProfile = async (req, res) => {
 
 exports.uploadImage = async (req, res) => {
   console.log('\n=====ARCHIVO====', req.file, '=========\n');
-  const buffer = await sharp(req.file.buffer)
-    .resize({ width: 250, height: 250 })
-    .png()
-    .toBuffer();
-  req.user.avatar = buffer;
+  req.user.avatar = `/avatars/${req.file.filename}`;
   await req.user.save();
   res.json({
     succes: true
@@ -101,7 +97,7 @@ exports.getImage = async (req, res) => {
       throw new Error();
     }
 
-    res.set("Content-Type", "image/png");
+    res.set("Content-Type", "image/jpeg");
     res.send(user.avatar);
   } catch (e) {
     res.status(404).json({
