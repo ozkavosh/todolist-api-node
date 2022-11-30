@@ -65,8 +65,8 @@ exports.getTask = async (req, res) => {
       });
     res.json({
       count: req.user.tasks.length,
-      completed: req.user.tasks.filter(task => task.completed === true),
-      inProgress: req.user.tasks.filter(task => task.completed === false || task.completed === undefined),
+      completed: req.user.tasks.filter(task => task.completed === true).length,
+      inProgress: req.user.tasks.filter(task => task.completed === false || task.completed === undefined).length,
       data: req.user.tasks
     });
   } catch (err) {
