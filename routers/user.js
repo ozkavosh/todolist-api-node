@@ -35,10 +35,11 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const avatars = fs.readdirSync('./public/avatars');
-    if(avatars.includes(`${req.user.email}${path.extname(file.originalname)}`)){
-      fs.unlinkSync('./public/avatars/'+ `${req.user.email}${path.extname(file.originalname)}`);
+    const prevAvatar = avatars.find(avatar => avatar.includes(req.user.email));
+    if(prevAvatar){
+      fs.unlinkSync('./public/avatars/' + prevAvatar);
     }
-    cb(null, `${req.user.email}${path.extname(file.originalname)}`);
+    cb(null, `${req.user.email}${Math.random() * 9999}${path.extname(file.originalname)}`);
   }
 });
 
