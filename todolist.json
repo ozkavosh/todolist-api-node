@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "6a2dc0e8-ecf8-47c6-a5ac-64fb2ce36d95",
 		"name": "Todo List API",
-		"description": "Todo List API with user authentication, CRUD and sending email functionality\n\nFor more in depth docs with sample requests, visit the <a href=\"https://documenter.getpostman.com/view/8858534/SW7dX7JG?version=latest\" target=\"_blank\">Postman Doc</a>\n\nUse <b>https://api-nodejs-todolist.herokuapp.com</b> as the {{ url }} for all endpoints",
+		"description": "Todo List API with user authentication, CRUD and sending email functionality\n\nFor more in depth docs with sample requests, visit the <a href=\"https://documenter.getpostman.com/view/8858534/SW7dX7JG?version=latest\" target=\"_blank\">Postman Doc</a>\n\nUse <b>https://ozkavosh-todo.up.railway.app</b> as the {{ url }} for all endpoints",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
