@@ -73,6 +73,7 @@ exports.updateProfile = async (req, res) => {
 };
 
 exports.uploadImage = async (req, res) => {
+  console.log('\n=====ARCHIVO====', req.file, '=========\n');
   const buffer = await sharp(req.file.buffer)
     .resize({ width: 250, height: 250 })
     .png()
