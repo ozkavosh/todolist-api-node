@@ -97,8 +97,7 @@ exports.getImage = async (req, res) => {
       throw new Error();
     }
 
-    res.set("Content-Type", "image/jpeg");
-    res.send(user.avatar);
+    res.json({ avatarUri: user.avatar });
   } catch (e) {
     res.status(404).json({
       error: "No image found"
